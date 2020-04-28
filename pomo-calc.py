@@ -26,13 +26,23 @@ def load_state():
         line = int(line)
     return line
 
+def handle_input():
+    if len(sys.argv) >= 2:
+        a = sys.argv[1]
+    else:
+        a = input("Start time(hh-mm):")
+    a = datetime.strptime(a, "%H:%M")
+    return a
+
 if __name__ == "__main__":
     save_state()
     oset = load_state()
-    a = input("Start time(hh-mm):")
-    b = str(datetime.now().hour) + ":" + str(datetime.now().minute) #input("Start time(hh-mm):")
-    a = datetime.strptime(a, "%H:%M")
-    b = datetime.strptime(b, "%H:%M")
+    # a = input("Start time(hh-mm):")
+    # b = str(datetime.now().hour) + ":" + str(datetime.now().minute) #input("Start time(hh-mm):")
+    # a = datetime.strptime(a, "%H:%M")
+    # b = datetime.strptime(b, "%H:%M")
+    a = handle_input()
+    b = datetime.now()
 
     hours = int(b.hour-a.hour)
     mins = int(b.minute-a.minute) + hours*60
