@@ -2,6 +2,7 @@ from datetime import datetime
 import sys
 from math import floor
 from random import randrange as rr
+import os
 
 PLEN = 25
 OFF = 3
@@ -13,6 +14,24 @@ def test_file():
     except IOError:
         return 0
     return 1
+
+def delete_state():
+    if len(sys.argv) < 3:
+        return
+    if sys.argv[2].lower() != 'delete':
+        return
+    D = input('Delete state? (y/n)').lower()
+    if D != 'yes' and D != 'y':
+        print('state not deleted')
+        return
+    os.remove('file.txt')
+    print('state deleted')
+    
+    # if test_file():
+    #     return
+    # fp = open('file.txt', 'w')
+    # fp.write(str(rr(PLEN-OFF, PLEN+OFF+1)))
+    # fp.close()
 
 def save_state():
     if test_file():
@@ -35,6 +54,7 @@ def handle_input():
     return a
 
 if __name__ == "__main__":
+    delete_state()
     save_state()
     oset = load_state()
     # a = input("Start time(hh-mm):")
