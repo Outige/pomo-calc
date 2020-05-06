@@ -3,3 +3,4 @@ venv/
 
 # ignore files
 file*.txt
+record*.txt
