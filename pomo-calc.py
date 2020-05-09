@@ -16,9 +16,9 @@ OFF = 3
 # files
 # ----------------------------------
 
-def test_file():
+def test_file(f):
     try:
-        fp = open('file.txt', 'r')
+        fp = open(f, 'r')
         fp.close()
     except IOError:
         return 0
@@ -38,7 +38,7 @@ def delete_state():
 
 
 def save_state():
-    if test_file():
+    if test_file('file.txt'):
         return
     fp = open('file.txt', 'w')
     fp.write(str(rr(PLEN-OFF, PLEN+OFF+1)))
@@ -50,7 +50,14 @@ def load_state():
     return line
 
 def append_record(time, grade, date):
-    1
+    if not test_file('record.txt'):
+        fp = open('record.txt', 'w')
+        fp.write(str(time)+ ','+str(grade)+ ','+str(date.date()))
+        fp.close()
+    else:
+        fp = open('record.txt', 'a')
+        fp.write('\n'+str(time)+ ','+str(grade)+ ','+str(date.date()))
+        fp.close()
 
 # ----------------------------------
 # helper
@@ -95,18 +102,18 @@ def grade_system():
     hours = int(b.hour-a.hour)
     mins = int(b.minute-a.minute) + hours*60
     oset = 25
+    grade = ''
     if mins < oset:
-        print('F')
+        grade = 'F'
     elif mins >= oset and mins < oset*1.5:
-        print('C')
+        grade = 'C'
     elif mins >= oset*1.5 and mins < oset*2:
-        print('B')
+        grade = 'B'
     elif mins >= oset*2:
-        print('A')
-    print(mins)
-    return
-
+        grade = 'A'
+    append_record(mins, grade, datetime.now())
+    print("%s" %(grade))
 
 if __name__ == "__main__":
-    relative_system()
-    # grade_system()
+    # relative_system()
+    grade_system()
