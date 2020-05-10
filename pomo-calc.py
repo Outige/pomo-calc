@@ -71,12 +71,17 @@ def getdata(f):
         data.append(line.split(','))
     return data
 
-def trimdata(f):
+def calculate(f):
+    sum = 0
+    array = input("Enter IDs: <id,id,id...>\n$ ")
+    array = array.split(',')
     data = getdata(f)
-    # for i in range(data):
-    #     if i < len(data)-1 and (data[i][]):
-# def calculate_today():
-#     data = getdata('record.txt')
+    for d in data:
+        for a in array:
+            if d[0] == a:
+                sum += int(d[1])
+    print('sum: %d'%sum)
+
 
 # ----------------------------------
 # helper
@@ -152,6 +157,8 @@ if __name__ == "__main__":
             grade_system()
         elif sys.argv[2].lower() == 'delete':
             relative_system()
+        elif sys.argv[2].lower() == 'total':
+            calculate('record.txt')
         else:
             print(usage)
     elif len(sys.argv) == 4:
