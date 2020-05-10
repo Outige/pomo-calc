@@ -49,15 +49,27 @@ def load_state():
         line = int(line)
     return line
 
-def append_record(time, grade, date):
+def append_record(time, grade, date, start):
+    ID = 0
     if not test_file('record.txt'):
         fp = open('record.txt', 'w')
-        fp.write(str(time)+ ','+str(grade)+ ','+str(date.date()))
+        fp.write(str(ID)+','+str(time)+ ','+str(grade)+ ','+str(date.date())+','+str(start))
         fp.close()
     else:
+        data = getdata('record.txt')
+        ID = int(data[-1][0])+1
         fp = open('record.txt', 'a')
-        fp.write('\n'+str(time)+ ','+str(grade)+ ','+str(date.date()))
+        fp.write('\n'+str(ID)+','+str(time)+ ','+str(grade)+','+str(date.date())+','+str(start))
         fp.close()
+    print('ID: %d'%ID)
+
+def getdata(f):
+    data = []
+    if not test_file(f):
+        return data
+    for line in open(f, 'r'):
+        data.append(line.split(','))
+    return data
 
 # ----------------------------------
 # helper
@@ -95,7 +107,7 @@ def relative_system():
     elif x == 0:
         m = oset - m
         grade = "-" + str(m)
-    append_record(mins, grade, datetime.now())
+    append_record(mins, grade, datetime.now(), a.time())
     print(grade)
 
 def grade_system():
@@ -114,7 +126,7 @@ def grade_system():
         grade = 'B'
     elif mins >= oset*2:
         grade = 'A'
-    append_record(mins, grade, datetime.now())
+    append_record(mins, grade, datetime.now(), a.time())
     print("%s" %(grade))
 
 if __name__ == "__main__":
