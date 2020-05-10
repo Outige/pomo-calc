@@ -71,6 +71,13 @@ def getdata(f):
         data.append(line.split(','))
     return data
 
+def trimdata(f):
+    data = getdata(f)
+    # for i in range(data):
+    #     if i < len(data)-1 and (data[i][]):
+# def calculate_today():
+#     data = getdata('record.txt')
+
 # ----------------------------------
 # helper
 # ----------------------------------
