@@ -87,13 +87,16 @@ def relative_system():
     mins = int(b.minute-a.minute) + hours*60
     x = floor(mins/oset)
     m = mins - x*oset
+    grade = ''
     if x > 1:
-        print("X" + str(x) + " + " + str(m))
+        grade = "X" + str(x) + " + " + str(m)
     elif x == 1:
-        print("+" + str(m))
+        grade = "+" + str(m)
     elif x == 0:
         m = oset - m
-        print("-" + str(m))
+        grade = "-" + str(m)
+    append_record(mins, grade, datetime.now())
+    print(grade)
 
 def grade_system():
     a = handle_input()
@@ -115,5 +118,27 @@ def grade_system():
     print("%s" %(grade))
 
 if __name__ == "__main__":
-    # relative_system()
-    grade_system()
+    usage = '''Usage:
+                 python3 pomo-calc.py <hh:mm>/*start-tme*/;
+                                      { <0>/*relative system*/; <1>/*graded system*/ };
+                                      <delete>/*optional*//*if relative system*/')'''
+    if len(sys.argv) < 2:
+        print(usage)
+    elif len(sys.argv) == 2:
+        relative_system()
+    elif len(sys.argv) == 3:
+        if sys.argv[2] == '0':
+            relative_system()
+        elif sys.argv[2] == '1':
+            grade_system()
+        elif sys.argv[2].lower() == 'delete':
+            relative_system()
+        else:
+            print(usage)
+    elif len(sys.argv) == 4:
+        if sys.argv[2] == '0' and sys.argv[3].lower() == 'delete':
+            relative_system()
+        else:
+            print(usage)
+    else:
+        print(usage)
