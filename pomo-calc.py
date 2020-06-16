@@ -80,7 +80,11 @@ def calculate(f):
         for a in array:
             if d[0] == a:
                 sum += int(d[1])
-    print('sum: %d'%sum)
+    cmp = int(sys.argv[2])
+    if sum < cmp:
+        print("GOAL NOT REACHED")
+    else:
+        print('sum: %d'%sum)
 
 
 # ----------------------------------
@@ -151,14 +155,15 @@ if __name__ == "__main__":
     elif len(sys.argv) == 2:
         relative_system()
     elif len(sys.argv) == 3:
-        if sys.argv[2] == '0':
+        if sys.argv[1].lower() == 'total':
+            print("me")
+            calculate('record.txt')
+        elif sys.argv[2] == '0':
             relative_system()
         elif sys.argv[2] == '1':
             grade_system()
         elif sys.argv[2].lower() == 'delete':
             relative_system()
-        elif sys.argv[2].lower() == 'total':
-            calculate('record.txt')
         else:
             print(usage)
     elif len(sys.argv) == 4:
